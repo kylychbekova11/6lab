@@ -1,0 +1,22 @@
+START TRANSACTION;
+
+-- Добавляем нового повара
+INSERT INTO Chefs (ChefName, ExperienceYears) 
+VALUES ('Сергей Смирнов', 8);
+
+-- Получаем ID нового повара
+SET @NewChefID = LAST_INSERT_ID();
+
+-- Добавляем новый салат
+INSERT INTO Salads (SaladName, Ingredients, PreparationTime) 
+VALUES ('Весенний салат', 'Редис, огурцы, зелень, сметана', 10);
+
+-- Получаем ID нового салата
+SET @NewSaladID = LAST_INSERT_ID();
+
+-- Добавляем связь между новым поваром и новым салатом
+INSERT INTO ChefSalad (ChefID, SaladID) 
+VALUES (@NewChefID, @NewSaladID);
+
+-- Фиксируем изменения
+COMMIT;
